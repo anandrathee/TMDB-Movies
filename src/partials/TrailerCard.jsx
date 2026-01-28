@@ -35,7 +35,7 @@ const TrailerCard = ({movie}) => {
     }
 
     const handlePlayClick = async () => {
-        // If trailer key not fetched yet, fetch it
+    
         if(!trailerKey) {
             await fetchTrailer();
         }
@@ -48,7 +48,6 @@ const TrailerCard = ({movie}) => {
     }
 
     useEffect(()=>{
-        // Pre-fetch trailer on component mount
         fetchTrailer();
     },[])
 

@@ -5,6 +5,7 @@ import HomeTrailer from './components/HomeTrailer'
 import Trending from './components/Trending'
 import LatestTrailers from './components/LatestTrailers'
 import FreeToWatch from './components/FreeToWatch'
+import WhatIsPopular from './components/WhatIsPopular'
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <HomeTrailer/>
       <Trending/>
       <LatestTrailers/>
+      <WhatIsPopular/>
       <FreeToWatch/>
     </Home>
     </>

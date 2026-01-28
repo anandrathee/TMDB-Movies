@@ -24,7 +24,7 @@ const Context = ({ children }) => {
       }else if(trendingMoviesWeek.toLocaleLowerCase() === 'this week'){
         endpoint = '/trending/movie/week';
       } else{
-        endpoint = '/trending/movie/day'; // Default to today
+        endpoint = '/trending/movie/day'; 
       }
 
         const { data } = await axios.get(endpoint);
@@ -40,7 +40,6 @@ const Context = ({ children }) => {
       let endpoint = '';
       let params = {};
       
-      // Category ke hisaab se endpoint set karo
       switch(latestTrailerCategory.toLowerCase()) {
         case 'streaming':
           endpoint = '/discover/movie';
@@ -61,7 +60,7 @@ const Context = ({ children }) => {
         case 'in theatres':
           endpoint = '/movie/now_playing';
           break;
-        default: // 'popular'
+        default: 
           endpoint = '/movie/popular';
       }
       
@@ -77,18 +76,18 @@ const Context = ({ children }) => {
     let endpoint = '';
     let params = {}; 
     
-    // Category ke hisaab se endpoint set karo
+    
     if (freeToWatchCategory.toLowerCase() === 'movies') {
       endpoint = '/discover/movie';
       params = {
-        with_watch_monetization_types: 'free', // FREE movies filter
+        with_watch_monetization_types: 'free', 
         watch_region: 'IN',
         sort_by: 'popularity.desc'
       };
     } else if (freeToWatchCategory.toLowerCase() === 'tv shows') {
       endpoint = '/discover/tv'; // TV shows endpoint
       params = {
-        with_watch_monetization_types: 'free', // FREE TV shows
+        with_watch_monetization_types: 'free', 
         watch_region: 'IN',
         sort_by: 'popularity.desc'
       };
