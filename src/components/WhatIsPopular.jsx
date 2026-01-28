@@ -5,16 +5,16 @@ import MovieCard from '../partials/MovieCard';
 import TrailerCard from '../partials/TrailerCard';
 
 const WhatIsPopular = () => {
-    const {latestTrailers, setLatestTrailerCategory} = useContext(MovieContext);
-    const btnText = ["popular", "streaming", "on tv", "for rent", "in theatres"];
+    const {whatsPopular, setWhatsPopularCategory} = useContext(MovieContext);
+    const btnText = ["streaming", "on tv", "for rent", "in theatres"];
     // console.log(latestTrailers)
 
    const handleBtn = (text)=>{
-    setLatestTrailerCategory(text);
+    setWhatsPopularCategory(text);
    }
 
   return (
-      <div className='w-full h-100 bg-zinc-900 px-38.5 flex flex-col gap-10 '>
+      <div className='w-full h-110 bg-zinc-900 px-38.5 flex flex-col gap-10 '>
         <div className="top flex items-center justify-between px-4">
             <h1 className='text-white text-2xl font-semibold'>What's Popular</h1>
             <Button 
@@ -23,10 +23,10 @@ const WhatIsPopular = () => {
               type="multiple"
             />
         </div>
-        <div className="trendingContainer h-72 flex gap-18 overflow-x-auto pb-4">
-            {latestTrailers.length > 0 ? (
-          latestTrailers.map((elem,index)=>(
-            <TrailerCard key={index} movie={elem}/>
+        <div className="trendingContainer h-86 flex gap-18 overflow-x-auto pb-4">
+            {whatsPopular.length > 0 ? (
+          whatsPopular.map((elem,index)=>(
+            <MovieCard key={index} movie={elem}/>
           ))
         ):(
           <p className="text-white text-lg ml-4">Loading...</p>

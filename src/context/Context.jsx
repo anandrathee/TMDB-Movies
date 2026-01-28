@@ -8,9 +8,12 @@ const Context = ({ children }) => {
    const [trendingMoviesWeek, setTrendingMoviesWeek] = useState('today');
    const [latestTrailerCategory, setLatestTrailerCategory] = useState('popular');
    const [latestTrailers, setLatestTrailers] = useState([]);
+   const [whatsPopular, setWhatsPopular] = useState([]);
+   const [whatsPopularCategory, setWhatsPopularCategory] = useState('streaming');
    const [freeToWatchData, setFreeToWatchData] = useState([]);
    const [freeToWatchCategory, setFreeToWatchCategory] = useState('movies');
  
+   console.log("setWhatsPopularCategory: ", whatsPopularCategory);
    // Trending Movies API Call
    const getTrendingMovies = async ()=>{
     try{
@@ -71,6 +74,37 @@ const Context = ({ children }) => {
     }
    }
 
+
+    const getWhatsPopular = async ()=>{
+    try{
+      let endpoint = '';
+      let params = {};
+      
+      switch(whatsPopularCategory.toLowerCase()) {
+        case 'on tv':
+          endpoint = '/tv/on_the_air';
+          break;
+        case 'for rent':
+          endpoint = '/discover/movie';
+          params = {
+            with_watch_monetization_types: 'rent'
+          };
+          break;
+        case 'in theatres':
+          endpoint = '/movie/now_playing';
+          break;
+        default: 
+          endpoint = '/discover/movie';
+      }
+      
+      const { data } = await axios.get(endpoint, { params });
+      setWhatsPopular(data.results);
+    }catch(error){
+      console.log("Error fetching latest trailers: ", error);
+    }
+   }
+
+
    const getFreeToWatchData = async ()=>{
   try {
     let endpoint = '';
@@ -118,6 +152,10 @@ const Context = ({ children }) => {
         getLatestTrailers();
    }, [latestTrailerCategory]);
 
+   useEffect(()=>{
+        getWhatsPopular();
+   }, [whatsPopularCategory]);
+
     useEffect(()=>{
       getFreeToWatchData();
   }, [freeToWatchCategory]);
@@ -136,6 +174,11 @@ const Context = ({ children }) => {
     setFreeToWatchData,
     freeToWatchCategory,
     setFreeToWatchCategory,
+    whatsPopular, 
+    setWhatsPopular,
+    whatsPopularCategory, 
+    setWhatsPopularCategory,
+
 
    }
 
