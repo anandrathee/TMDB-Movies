@@ -7,7 +7,7 @@ const TrailerPlayer = ({ trailerKey, movie, onClose }) => {
     
     return (
         <div className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4">
-            <div className="relative w-full max-w-4xl bg-zinc-900 rounded-xl overflow-hidden">
+            <div className="relative w-full max-w-3xl bg-zinc-900 rounded-xl overflow-hidden">
                 {/* Close Button */}
                 <button
                     onClick={onClose}
