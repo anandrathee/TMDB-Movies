@@ -23,7 +23,7 @@ const WhatIsPopular = () => {
               type="multiple"
             />
         </div>
-        <div className="trendingContainer h-86 flex gap-18 overflow-x-auto pb-4">
+        <div className="trendingContainer h-86 flex gap-10 overflow-x-auto pb-4">
             {whatsPopular.length > 0 ? (
           whatsPopular.map((elem,index)=>(
             <MovieCard key={index} movie={elem}/>

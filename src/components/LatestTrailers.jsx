@@ -23,7 +23,7 @@ const LatestTrailers = () => {
               type="multiple"
             />
         </div>
-        <div className="trendingContainer h-72 flex gap-18 overflow-x-auto pb-4">
+        <div className="trendingContainer h-72 flex gap-10 overflow-x-auto pb-4">
             {latestTrailers.length > 0 ? (
           latestTrailers.map((elem,index)=>(
             <TrailerCard key={index} movie={elem}/>

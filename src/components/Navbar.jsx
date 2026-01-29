@@ -55,7 +55,7 @@ const Navbar = () => {
                 >
                   {dropdownItems[menu].map((item) => (
                     <Link 
-                    to={`/${item}`}
+                    to={`/${menu.toLowerCase()}/${item.toLowerCase()}`}
                       key={item}
                       className="font-medium hover:bg-zinc-100 px-4 py-2 cursor-pointer transition-colors"
                     >
