@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 
 const Button = ({ text, text2, handleBtn, type = "toggle" }) => {
-  // Type 1: Toggle Button (Trending aur FreeToWatch ke liye)
+ 
   if (type === "toggle") {
     const [istrue, setIsTrue] = useState(false);
     
     const handleClick = () => {
       setIsTrue(!istrue);
-      // Handle different cases properly
       if (istrue) {
-        handleBtn(text);  // Text 1 (left side) - Movies/Day
+        handleBtn(text); 
       } else {
-        handleBtn(text2); // Text 2 (right side) - TV Shows/Week
+        handleBtn(text2); 
       }
     };
     
@@ -35,13 +34,15 @@ const Button = ({ text, text2, handleBtn, type = "toggle" }) => {
     );
   }
 
-  // Type 2: Multiple Buttons (Latest Trailers ke liye)
+  // Multiple Buttons
   if (type === "multiple") {
     const [activeIndex, setActiveIndex] = useState(0);
+   
     
     const handleButtonClick = (index, btnText) => {
       setActiveIndex(index);
       handleBtn(btnText);
+       
     };
     
     return (

@@ -1,0 +1,39 @@
+  let endpoint = "";
+  let params = {};
+
+  if (latestTrailerCategory === "streaming") {
+    endpoint = "/discover/movie";
+    params = {
+      with_watch_providers: "8|9|337",
+      watch_region: "IN",
+    };
+  } else if (latestTrailerCategory === "on tv") {
+    endpoint = "/tv/on_the_air";
+    params = {
+      language: "en-US",
+      page: 1,
+    };
+  } else if (latestTrailerCategory === "for rent") {
+    endpoint = "/discover/movie";
+    params = {
+      with_watch_monetization_types: "rent",
+      sort_by: "popularity.desc",
+      page: 1,
+    };
+  } else if (latestTrailerCategory === "in theatres") {
+    endpoint = "/movie/now_playing";
+    params = {
+      language: "en-US",
+      page: 1,
+      region: "IN",
+    };
+  } else {
+    // popular
+    endpoint = "/movie/popular";
+    params = {
+      language: "en-US",
+      page: 1,
+    };
+  }
+
+  // console.log("Endpoint:", endpoint, "Params:", params);

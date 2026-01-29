@@ -1,10 +1,10 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useEffect, useState } from 'react'
 import axios from '../utils/axios';
 
 export const MovieContext = createContext()
 
 const Context = ({ children }) => {
-    const [trendingMovies, setTrendingMovies] = useState([]);
+   const [trendingMovies, setTrendingMovies] = useState([]);
    const [trendingMoviesWeek, setTrendingMoviesWeek] = useState('today');
    const [latestTrailerCategory, setLatestTrailerCategory] = useState('popular');
    const [latestTrailers, setLatestTrailers] = useState([]);
@@ -13,10 +13,11 @@ const Context = ({ children }) => {
    const [freeToWatchData, setFreeToWatchData] = useState([]);
    const [freeToWatchCategory, setFreeToWatchCategory] = useState('movies');
  
-   console.log("setWhatsPopularCategory: ", whatsPopularCategory);
+
+  
    // Trending Movies API Call
    const getTrendingMovies = async ()=>{
-    try{
+    try{ 
 
       let endpoint = '';
       let params = {};
@@ -38,19 +39,23 @@ const Context = ({ children }) => {
    }
 
    // Latest Trailers API Call
-   const getLatestTrailers = async ()=>{
-    try{
-      let endpoint = '';
-      let params = {};
-      
-      switch(latestTrailerCategory.toLowerCase()) {
-        case 'streaming':
-          endpoint = '/discover/movie';
-          params = {
-            with_watch_providers: '8|9|337',
-            watch_region: 'IN'
-          };
-          break;
+ const getLatestTrailers = useCallback(async () => {
+
+
+     try {
+        let endpoint = '';
+        let params = {};
+        
+        switch(latestTrailerCategory.toLowerCase()) {
+            case 'streaming':
+                endpoint = '/discover/movie';
+                params = {
+                    with_watch_providers: '8|9|337',
+                    watch_region: 'IN',
+                    sort_by: 'popularity.desc',
+                    page: 1
+                };
+                break;
         case 'on tv':
           endpoint = '/tv/on_the_air';
           break;
@@ -72,7 +77,7 @@ const Context = ({ children }) => {
     }catch(error){
       console.log("Error fetching latest trailers: ", error);
     }
-   }
+   }, [latestTrailerCategory]); 
 
 
     const getWhatsPopular = async ()=>{
@@ -119,7 +124,7 @@ const Context = ({ children }) => {
         sort_by: 'popularity.desc'
       };
     } else if (freeToWatchCategory.toLowerCase() === 'tv shows') {
-      endpoint = '/discover/tv'; // TV shows endpoint
+      endpoint = '/discover/tv'; 
       params = {
         with_watch_monetization_types: 'free', 
         watch_region: 'IN',
@@ -143,14 +148,13 @@ const Context = ({ children }) => {
 
 
 
-   // API Calls on component mount and dependency change
    useEffect(()=>{
         getTrendingMovies();
    }, [trendingMoviesWeek]);
 
-   useEffect(()=>{
-        getLatestTrailers();
-   }, [latestTrailerCategory]);
+ useEffect(() => {
+    getLatestTrailers();
+}, [latestTrailerCategory]); 
 
    useEffect(()=>{
         getWhatsPopular();
