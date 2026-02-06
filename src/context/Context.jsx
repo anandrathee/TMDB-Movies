@@ -12,6 +12,10 @@ const Context = ({ children }) => {
    const [whatsPopularCategory, setWhatsPopularCategory] = useState('streaming');
    const [freeToWatchData, setFreeToWatchData] = useState([]);
    const [freeToWatchCategory, setFreeToWatchCategory] = useState('movies');
+   const [searchQuery, setSearchQuery] = useState('');
+   const [searchedData, setSearchedData] = useState([])
+
+   console.log(searchedData)
  
 
   
@@ -146,6 +150,25 @@ const Context = ({ children }) => {
   }
 }
 
+const getSearchData = async (query = 'jab we met') => {
+  try {
+    // ✅ SEARCH endpoint use karo
+    let endpoint = `/search/movie?query=${query}&page=1`;
+    
+    // Empty query? Trending dikhao
+    if (!query.trim()) {
+      endpoint = '/trending/all/week';
+    }
+    const {data} = await axios.get(endpoint);
+    setSearchedData(data.results);
+    
+  } catch(error) {
+    console.log("❌ Error fetching Search Data:", error.response?.data || error.message);
+    return [];
+  }
+};
+
+
 
 
    useEffect(()=>{
@@ -163,6 +186,10 @@ const Context = ({ children }) => {
     useEffect(()=>{
       getFreeToWatchData();
   }, [freeToWatchCategory]);
+
+    useEffect(()=>{
+      getSearchData();
+  }, []);
 
    // Context values
    const moviesValues = {
@@ -182,6 +209,8 @@ const Context = ({ children }) => {
     setWhatsPopular,
     whatsPopularCategory, 
     setWhatsPopularCategory,
+    searchQuery,
+    setSearchQuery,
 
 
    }

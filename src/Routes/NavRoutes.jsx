@@ -8,6 +8,7 @@ import LatestTrailers from "../components/LatestTrailers";
 import FreeToWatch from "../components/FreeToWatch";
 import WhatIsPopular from "../components/WhatIsPopular";
 import PopularMovies from '../RouteComponents/PopularMovies'
+import SearchBar from '../partials/SearchBar';
 
 const NavRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const NavRoutes = () => {
           element={
             <Home>
               <Navbar />
+              <SearchBar/>
               <HomeTrailer />
               <Trending />
               <LatestTrailers />
