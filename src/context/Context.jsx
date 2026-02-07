@@ -14,6 +14,7 @@ const Context = ({ children }) => {
    const [freeToWatchCategory, setFreeToWatchCategory] = useState('movies');
    const [searchQuery, setSearchQuery] = useState('');
    const [searchedData, setSearchedData] = useState([])
+    const [searchAddedItem, setSearchAddedItem] = useState([]);
 
   //  console.log(searchedData)
  
@@ -168,9 +169,6 @@ const getSearchData = async () => {
   }
 };
 
-const handleMovie = ()=>{
-  
-}
 
 
 
@@ -222,6 +220,9 @@ const handleMovie = ()=>{
     searchedData,
     setSearchedData,
     getSearchData,
+    searchAddedItem,
+    setSearchAddedItem,
+
 
 
 

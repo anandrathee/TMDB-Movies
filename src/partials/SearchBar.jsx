@@ -4,9 +4,8 @@ import { MovieContext } from '../context/Context';
 import SearchMovies from '../components/SearchMovies';
 
 const SearchBar = () => {
-  const { searchQuery, setSearchQuery, getSearchData, searchedData } = useContext(MovieContext);
+  const { searchQuery, setSearchQuery, getSearchData} = useContext(MovieContext);
 
- const [isSearchBar, setIsSearchBar] = useState(false)
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {

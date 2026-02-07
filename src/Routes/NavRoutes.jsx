@@ -10,6 +10,7 @@ import WhatIsPopular from "../components/WhatIsPopular";
 import PopularMovies from '../RouteComponents/PopularMovies'
 import SearchBar from '../partials/SearchBar';
 import SearchMovies from '../components/SearchMovies';
+import MovieDetails from '../components/MovieDetails';
 
 const NavRoutes = () => {
   return (
@@ -30,6 +31,7 @@ const NavRoutes = () => {
         />
 
         <Route path="/movies/popular" element={<PopularMovies />} />
+        <Route path="/search/movieDetails" element={<MovieDetails />} />
       </Routes>
   )
 }

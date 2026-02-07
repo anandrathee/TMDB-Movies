@@ -1,11 +1,12 @@
 import React from 'react'
 import NO_IMAGE_URL from '../public/NoImage.png'
+import { Link } from 'react-router-dom'
 
 const SearchItemCard = ({item, handleMovieBtn}) => {
   const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w500'  
 
   return (
-    <div onClick={()=>handleMovieBtn(item.id)} className='w-full h-18 bg-zinc-100 flex items-center justify-start gap-4 p-2 rounded cursor-pointer hover:bg-zinc-200 transition-all'>
+    <Link to="/search/movieDetails" onClick={()=>handleMovieBtn(item.id)} className='w-full h-18 bg-zinc-100 flex items-center justify-start gap-4 p-2 rounded cursor-pointer hover:bg-zinc-200 transition-all'>
       <div className="img w-16 h-16">
         <img 
           className='w-full h-full rounded object-cover' 
@@ -25,7 +26,7 @@ const SearchItemCard = ({item, handleMovieBtn}) => {
           </p>
         )}
       </div>
-    </div>
+    </Link>
   )
 }
 
