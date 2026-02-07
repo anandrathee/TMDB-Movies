@@ -38,7 +38,7 @@ const TrailerCard = ({movie}) => {
             const trailerRes = await axios.get(endpoint)
         
             if (!trailerRes.data.results || trailerRes.data.results.length === 0) {
-                console.log(`🚫 No videos found for ${movie.id}`);
+                // console.log(`🚫 No videos found for ${movie.id}`);   
                 return;
             }
             

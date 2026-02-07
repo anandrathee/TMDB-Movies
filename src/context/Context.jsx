@@ -15,7 +15,7 @@ const Context = ({ children }) => {
    const [searchQuery, setSearchQuery] = useState('');
    const [searchedData, setSearchedData] = useState([])
 
-   console.log(searchedData)
+  //  console.log(searchedData)
  
 
   
@@ -150,23 +150,27 @@ const Context = ({ children }) => {
   }
 }
 
-const getSearchData = async (query = 'jab we met') => {
+const getSearchData = async () => {
   try {
-    // ✅ SEARCH endpoint use karo
-    let endpoint = `/search/movie?query=${query}&page=1`;
+    let endpoint;
     
-    // Empty query? Trending dikhao
-    if (!query.trim()) {
+    if (searchQuery.trim()) {
+      endpoint = `/search/multi?query=${encodeURIComponent(searchQuery)}&page=1`;
+    } else {
       endpoint = '/trending/all/week';
     }
-    const {data} = await axios.get(endpoint);
-    setSearchedData(data.results);
     
+    const { data } = await axios.get(endpoint);
+    setSearchedData(data.results);
   } catch(error) {
-    console.log("❌ Error fetching Search Data:", error.response?.data || error.message);
-    return [];
+    console.log("Search Error:", error.response?.data || error.message);
+    setSearchedData([]);
   }
 };
+
+const handleMovie = ()=>{
+  
+}
 
 
 
@@ -187,9 +191,13 @@ const getSearchData = async (query = 'jab we met') => {
       getFreeToWatchData();
   }, [freeToWatchCategory]);
 
-    useEffect(()=>{
-      getSearchData();
-  }, []);
+ useEffect(() => {
+  const timeoutId = setTimeout(() => {
+    getSearchData();
+  }, 500);
+
+  return () => clearTimeout(timeoutId); 
+}, [searchQuery]);
 
    // Context values
    const moviesValues = {
@@ -211,6 +219,10 @@ const getSearchData = async (query = 'jab we met') => {
     setWhatsPopularCategory,
     searchQuery,
     setSearchQuery,
+    searchedData,
+    setSearchedData,
+    getSearchData,
+
 
 
    }

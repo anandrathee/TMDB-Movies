@@ -9,6 +9,7 @@ import FreeToWatch from "../components/FreeToWatch";
 import WhatIsPopular from "../components/WhatIsPopular";
 import PopularMovies from '../RouteComponents/PopularMovies'
 import SearchBar from '../partials/SearchBar';
+import SearchMovies from '../components/SearchMovies';
 
 const NavRoutes = () => {
   return (
