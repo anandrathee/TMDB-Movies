@@ -16,6 +16,7 @@ const Context = ({ children }) => {
    const [searchedData, setSearchedData] = useState([])
     const [searchAddedItem, setSearchAddedItem] = useState([]);
     const [trailerKey, setTrailerKey] = useState('')
+    const [movieDetail, setMovieDetail] = useState(null)
 
   //  console.log(searchedData)
  
@@ -170,8 +171,9 @@ const getSearchData = async () => {
   }
 };
 
-    const handleCardButton = (movieKey)=>{
-      console.log("Movie Key is:", movieKey)
+    const handleCardButton = (movie)=>{
+      setMovieDetail(movie)
+      console.log(movieDetail)
     }
 
 
@@ -230,6 +232,8 @@ const getSearchData = async () => {
     trailerKey,
     setTrailerKey,
     handleCardButton,
+    movieDetail,
+    setMovieDetail,
 
 
 
