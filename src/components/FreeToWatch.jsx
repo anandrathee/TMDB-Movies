@@ -4,7 +4,7 @@ import { MovieContext } from '../context/Context';
 import MovieCard from '../partials/MovieCard';
 
 const FreeToWatch = () => {
-   const {freeToWatchData, setFreeToWatchCategory} = useContext(MovieContext);
+   const {freeToWatchData, setFreeToWatchCategory, handleCardButton} = useContext(MovieContext);
 
    const handleBtn = (text)=>{
     setFreeToWatchCategory(text);
@@ -24,7 +24,7 @@ const FreeToWatch = () => {
         <div className="trendingContainer flex h-86 gap-10 overflow-x-auto">
             {freeToWatchData.length > 0 ? (
           freeToWatchData.map((elem,index)=>(
-            <MovieCard key={index} movie={elem}/>
+            <MovieCard key={index} movie={elem} handleCardButton={handleCardButton}/>
           ))
         ):(
           <p className="text-white text-lg ml-4">Loading...</p>

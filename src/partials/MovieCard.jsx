@@ -2,12 +2,12 @@ import React from 'react'
 import { IoMdHeartEmpty } from "react-icons/io";
 
 
-const MovieCard = ({movie}) => {
+const MovieCard = ({movie, handleCardButton}) => {
 
      const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w500'
       const rating = Math.round(movie.vote_average * 10)
   return (
-     <div className="container  w-36 h-72 flex flex-col gap-4">
+     <div onClick={()=>handleCardButton(movie.id)} className="container  w-36 h-72 flex flex-col gap-4">
         <div className='w-36 h-68 rounded-lg relative'>
             <img className='w-full h-full bg-cover rounded-md'  src={`${POSTER_BASE_URL}${movie.poster_path} || ${movie.backdrop_path}`}
           alt={movie.title} />

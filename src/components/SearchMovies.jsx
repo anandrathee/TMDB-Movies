@@ -3,13 +3,16 @@ import { MovieContext } from '../context/Context'
 import SearchItemCard from '../partials/SearchItemCard'
 
 const SearchMovies = () => {
- const {searchedData, setSearchedData, setSearchAddedItem} = useContext(MovieContext);
+ const {searchedData, setSearchedData, setSearchAddedItem, setSearchQuery} = useContext(MovieContext);
 
 //  console.log(addedItem);
 
 const handleMovieBtn = (itemId) => {
   const movie = searchedData.find(m => m.id === itemId);
   setSearchAddedItem(movie);
+
+  setSearchQuery('')
+  // setSearchedData([]);
 };
 
  

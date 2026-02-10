@@ -5,7 +5,7 @@ import MovieCard from '../partials/MovieCard';
 import TrailerCard from '../partials/TrailerCard';
 
 const WhatIsPopular = () => {
-    const {whatsPopular, setWhatsPopularCategory} = useContext(MovieContext);
+    const {whatsPopular, setWhatsPopularCategory, handleCardButton} = useContext(MovieContext);
     const btnText = ["streaming", "on tv", "for rent", "in theatres"];
     // console.log(latestTrailers)
 
@@ -26,7 +26,7 @@ const WhatIsPopular = () => {
         <div className="trendingContainer h-86 flex gap-10 overflow-x-auto pb-4">
             {whatsPopular.length > 0 ? (
           whatsPopular.map((elem,index)=>(
-            <MovieCard key={index} movie={elem}/>
+            <MovieCard key={index} movie={elem} handleCardButton={handleCardButton}/>
           ))
         ):(
           <p className="text-white text-lg ml-4">Loading...</p>

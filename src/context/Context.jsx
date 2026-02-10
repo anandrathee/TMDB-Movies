@@ -15,6 +15,7 @@ const Context = ({ children }) => {
    const [searchQuery, setSearchQuery] = useState('');
    const [searchedData, setSearchedData] = useState([])
     const [searchAddedItem, setSearchAddedItem] = useState([]);
+    const [trailerKey, setTrailerKey] = useState('')
 
   //  console.log(searchedData)
  
@@ -169,6 +170,10 @@ const getSearchData = async () => {
   }
 };
 
+    const handleCardButton = (movieKey)=>{
+      console.log("Movie Key is:", movieKey)
+    }
+
 
 
 
@@ -222,6 +227,9 @@ const getSearchData = async () => {
     getSearchData,
     searchAddedItem,
     setSearchAddedItem,
+    trailerKey,
+    setTrailerKey,
+    handleCardButton,
 
 
 

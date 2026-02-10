@@ -11,7 +11,12 @@ const SearchBar = () => {
     if (e.key === 'Enter') {
       getSearchData();
     }
+
+   
   };
+
+   
+
 
   
 

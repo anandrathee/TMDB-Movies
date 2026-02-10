@@ -4,11 +4,13 @@ import { MovieContext } from '../context/Context';
 import MovieCard from '../partials/MovieCard';
 
 const Trending = () => {
-   const {trendingMovies, setTrendingMoviesWeek} = useContext(MovieContext);
+   const {trendingMovies, setTrendingMoviesWeek, handleCardButton} = useContext(MovieContext);
 
    const handleBtn = (text)=>{
     setTrendingMoviesWeek(text);
    }
+
+
 
   return (
     <div className='w-full h-130 bg-zinc-900 px-38.5 pt-6 flex flex-col gap-10 '>
@@ -24,7 +26,7 @@ const Trending = () => {
         <div className="trendingContainer flex h-86 gap-10 overflow-x-auto">
             {trendingMovies.length > 0 ? (
           trendingMovies.map((elem,index)=>(
-            <MovieCard key={index} movie={elem}/>
+            <MovieCard key={index} movie={elem} handleCardButton={handleCardButton}/>
           ))
         ):(
           <p className="text-white text-lg ml-4">Loading...</p>
