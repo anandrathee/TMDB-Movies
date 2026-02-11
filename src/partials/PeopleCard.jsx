@@ -8,7 +8,7 @@ const PeopleCard = ({ person, handleCardButton }) => {
 
   return (
     <Link 
-      to="/person-detail" 
+      to={`/person/${person.id}`}
       onClick={() => handleCardButton(person)} 
       className="container w-36 h-72 flex flex-col gap-4 hover:scale-105 transition-all duration-300"
     >

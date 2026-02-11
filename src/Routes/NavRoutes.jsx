@@ -1,15 +1,12 @@
-import React from "react";
+import React from 'react'
 import { Route, Routes } from "react-router-dom";
 import Home from "../components/Home";
-import Navbar from "../components/Navbar";
 import HomeTrailer from "../components/HomeTrailer";
 import Trending from "../components/Trending";
 import LatestTrailers from "../components/LatestTrailers";
 import FreeToWatch from "../components/FreeToWatch";
 import WhatIsPopular from "../components/WhatIsPopular";
 import PopularMovies from "../RouteComponents/PopularMovies";
-import SearchBar from "../partials/SearchBar";
-import SearchMovies from "../components/SearchMovies";
 import SearchedMovieDetails from "../components/SearchedMovieDetails";
 import ShowMovieDetails from "../components/ShowMovieDetails";
 import NowPlaying from "../RouteComponents/NowPlaying";
@@ -20,6 +17,7 @@ import TvPopular from "../RouteComponents/TvPopular";
 import OnTv from "../RouteComponents/OnTv";
 import TvTopRated from "../RouteComponents/TvTopRated";
 import People from "../RouteComponents/People";
+import PersonDetails from '../partials/PersonDetails';
 
 const NavRoutes = () => {
   return (
@@ -51,10 +49,13 @@ const NavRoutes = () => {
 
 
       <Route path="/people/popular" element={<People/>} />
+        <Route path="/person/:id" element={<PersonDetails />} />
+      <Route path="/person-details" element={<PersonDetails />} />
       
       {/* OTHERS */}
       <Route path="/search/movieDetails" element={<SearchedMovieDetails />} />
       <Route path="/movie-detail" element={<ShowMovieDetails />} />
+     
       
       {/* 404 */}
       <Route path="*" element={<div className="p-20 text-white">404 - Page Not Found</div>} />
