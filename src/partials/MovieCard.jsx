@@ -8,7 +8,7 @@ const MovieCard = ({movie, handleCardButton}) => {
      const POSTER_BASE_URL = 'https://image.tmdb.org/t/p/w500'
       const rating = Math.round(movie.vote_average * 10)
   return (
-     <Link to="/movie-detail" onClick={()=>handleCardButton(movie)} className="container  w-36 h-72 flex flex-col gap-4">
+     <Link to="/movie-detail" onClick={()=>handleCardButton(movie)} className="container  w-36 h-72 flex flex-col gap-4 hover:scale-105 transition-all duration-300">
         <div className='w-36 h-68 rounded-lg relative'>
             <img className='w-full h-full bg-cover rounded-md'  src={`${POSTER_BASE_URL}${movie.poster_path} || ${movie.backdrop_path}`}
           alt={movie.title} />

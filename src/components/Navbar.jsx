@@ -4,11 +4,21 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const [hoveredMenu, setHoveredMenu] = useState(null);
 
+  // 🔥 FIXED ROUTE MAPPING
   const dropdownItems = {
-    "Movies": ["Popular", "Now Playing", "Upcoming", "Top Rated"],
-    "TV Shows": ["Popular", "Airing Today", "On TV", "Top Rated"],
-    "People": ["Popular People"],
-    "More": ["Discussions", "Leaderboard", "Support", "API"]
+    "Movies": [
+      { name: "Popular", path: "/movies/popular" },
+      { name: "Now Playing", path: "/movies/now-playing" },
+      { name: "Upcoming", path: "/movies/upcoming" },
+      { name: "Top Rated", path: "/movies/top-rated" }
+    ],
+    "TV Shows": [
+      { name: "Popular", path: "/tv-shows/popular" },
+      { name: "Airing Today", path: "/tv-shows/airing-today" },
+      { name: "On TV", path: "/tv-shows/on-tv" },
+      { name: "Top Rated", path: "/tv-shows/top-rated" }
+    ],
+    "People": [{ name: "Popular People", path: "/people/popular" }],
   };
 
   const handleMouseEnter = (menu) => {
@@ -46,7 +56,7 @@ const Navbar = () => {
                 {menu}
               </Link>
 
-              {/* Dynamic Dropdown for each menu */}
+              {/* Dynamic Dropdown */}
               {hoveredMenu === menu && dropdownItems[menu].length > 0 && (
                 <div
                   className="absolute top-5 -left-4 bg-white rounded-md py-3 text-black flex flex-col min-w-48 shadow-xl z-50"
@@ -54,12 +64,12 @@ const Navbar = () => {
                   onMouseLeave={handleMouseLeave}
                 >
                   {dropdownItems[menu].map((item) => (
-                    <Link 
-                    to={`/${menu.toLowerCase()}/${item.toLowerCase()}`}
-                      key={item}
+                    <Link
+                      key={item.name}
+                      to={item.path} 
                       className="font-medium hover:bg-zinc-100 px-4 py-2 cursor-pointer transition-colors"
                     >
-                      {item}
+                      {item.name}
                     </Link>
                   ))}
                 </div>

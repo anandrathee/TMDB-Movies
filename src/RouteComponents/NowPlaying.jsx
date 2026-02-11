@@ -1,38 +1,39 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import axios from "../utils/axios";
-import MovieCard from "../partials/MovieCard";
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import axios from '../utils/axios'
+import MovieCard from '../partials/MovieCard';
 
-const PopularMovies = () => {
-  const [popularMovies, setPopularMovies] = useState([]);
+const NowPlaying = () => {
+
+  const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
 
-  const getPopularMovies = async () => {
+  const getNowPlayingMovies = async () => {
     if (loading || !hasMore) return;
     
     try {
       setLoading(true);
-      const endpoint = `/movie/popular?page=${currentPage}`;
+      const endpoint = `/movie/now_playing?page=${currentPage}`;
       const { data } = await axios.get(endpoint);
       
       // DUPLICATE CHECK + FILTER
       const newMovies = data.results.filter(
-        newMovie => !popularMovies.some(existing => existing.id === newMovie.id)
+        newMovie => !nowPlayingMovies.some(existing => existing.id === newMovie.id)
       );
       
-      setPopularMovies(prev => [...prev, ...newMovies]);
+      setNowPlayingMovies(prev => [...prev, ...newMovies]);
       
       // End check
       if (newMovies.length === 0 || currentPage >= 1000) {
         setHasMore(false);
-        console.log("No more movies!");
+        console.log(" No more movies!");
       }
       
-      console.log(` Page ${currentPage}: ${newMovies.length} new movies (total: ${popularMovies.length + newMovies.length})`);
+      console.log(` Page ${currentPage}: ${newMovies.length} new movies (total: ${nowPlayingMovies.length + newMovies.length})`);
     } catch (error) {
-      console.log("Error:", error);
+      console.log(" Error:", error);
     } finally {
       setLoading(false);
     }
@@ -53,22 +54,22 @@ const PopularMovies = () => {
 
   useEffect(() => {
     if (currentPage === 1) {
-      setPopularMovies([]); // Reset on first page
+      setNowPlayingMovies([]); // Reset on first page
     }
-    getPopularMovies();
+    getNowPlayingMovies();
   }, [currentPage]);
 
   return (
     <div className="w-full h-full flex flex-col px-32.5 py-10 gap-6 bg-zinc-800">
       <h1 className="text-3xl text-white font-semibold">
-        Popular Movies ({popularMovies.length} loaded)
+        Now Playing ({nowPlayingMovies.length} loaded)
       </h1>
-      
+
       <div className="movies flex flex-wrap gap-10 items-start justify-start">
-        {popularMovies.map((elem, index) => (
+        {nowPlayingMovies.map((elem, index) => (
           <div 
             key={`${elem.id}-${index}`} // COMPOSITE KEY - DUPLICATE ERROR GONE!
-            ref={index === popularMovies.length - 1 && hasMore ? lastMovieRef : null}
+            ref={index === nowPlayingMovies.length - 1 && hasMore ? lastMovieRef : null}
           >
             <MovieCard movie={elem} />
           </div>
@@ -86,13 +87,13 @@ const PopularMovies = () => {
       )}
 
       {/* End message */}
-      {!hasMore && popularMovies.length > 0 && (
+      {!hasMore && nowPlayingMovies.length > 0 && (
         <div className="w-full text-center py-12">
-          <p className="text-gray-400 text-xl">🎉 All {popularMovies.length} movies loaded!</p>
+          <p className="text-gray-400 text-xl">🎉 All {nowPlayingMovies.length} movies loaded!</p>
         </div>
       )}
     </div>
   );
 };
 
-export default PopularMovies;
+export default NowPlaying

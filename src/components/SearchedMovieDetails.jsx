@@ -65,7 +65,7 @@ const SearchedMovieDetails = () => {
       {/* Back Button */}
       <button
         onClick={() => navigate(-1)}
-        className="absolute top-10 left-32 z-[95] bg-zinc-100 text-black font-semibold w-20 h-10 text-2xl rounded flex items-center justify-center gap-1"
+        className="absolute top-10 left-32 z-95 bg-zinc-100 text-black font-semibold w-20 h-10 text-2xl rounded flex items-center justify-center gap-1"
       >
         <MdKeyboardBackspace />
       </button>
@@ -79,7 +79,7 @@ const SearchedMovieDetails = () => {
       />
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/10" />
+      <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-black/10" />
 
       {/* Content */}
       <div className="relative z-10 flex gap-10 px-20 py-16 h-full items-center">

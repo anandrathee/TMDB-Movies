@@ -2,27 +2,27 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import axios from "../utils/axios";
 import MovieCard from "../partials/MovieCard";
 
-const PopularMovies = () => {
-  const [popularMovies, setPopularMovies] = useState([]);
+const Upcoming = () => {
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
 
-  const getPopularMovies = async () => {
+  const getUpcomingMovies = async () => {
     if (loading || !hasMore) return;
     
     try {
       setLoading(true);
-      const endpoint = `/movie/popular?page=${currentPage}`;
+      const endpoint = `/movie/upcoming?page=${currentPage}`;
       const { data } = await axios.get(endpoint);
       
       // DUPLICATE CHECK + FILTER
       const newMovies = data.results.filter(
-        newMovie => !popularMovies.some(existing => existing.id === newMovie.id)
+        newMovie => !upcomingMovies.some(existing => existing.id === newMovie.id)
       );
       
-      setPopularMovies(prev => [...prev, ...newMovies]);
+      setUpcomingMovies(prev => [...prev, ...newMovies]);
       
       // End check
       if (newMovies.length === 0 || currentPage >= 1000) {
@@ -30,15 +30,15 @@ const PopularMovies = () => {
         console.log("No more movies!");
       }
       
-      console.log(` Page ${currentPage}: ${newMovies.length} new movies (total: ${popularMovies.length + newMovies.length})`);
+      console.log(`Page ${currentPage}: ${newMovies.length} new movies (total: ${upcomingMovies.length + newMovies.length})`);
     } catch (error) {
-      console.log("Error:", error);
+      console.log(" Error:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  // Intersection Observer
+  //  Intersection Observer
   const lastMovieRef = useCallback(node => {
     if (observer.current) observer.current.disconnect();
     
@@ -53,22 +53,22 @@ const PopularMovies = () => {
 
   useEffect(() => {
     if (currentPage === 1) {
-      setPopularMovies([]); // Reset on first page
+      setUpcomingMovies([]); // Reset on first page
     }
-    getPopularMovies();
+    getUpcomingMovies();
   }, [currentPage]);
 
   return (
     <div className="w-full h-full flex flex-col px-32.5 py-10 gap-6 bg-zinc-800">
       <h1 className="text-3xl text-white font-semibold">
-        Popular Movies ({popularMovies.length} loaded)
+        Upcoming Movies ({upcomingMovies.length} loaded)
       </h1>
       
       <div className="movies flex flex-wrap gap-10 items-start justify-start">
-        {popularMovies.map((elem, index) => (
+        {upcomingMovies.map((elem, index) => (
           <div 
             key={`${elem.id}-${index}`} // COMPOSITE KEY - DUPLICATE ERROR GONE!
-            ref={index === popularMovies.length - 1 && hasMore ? lastMovieRef : null}
+            ref={index === upcomingMovies.length - 1 && hasMore ? lastMovieRef : null}
           >
             <MovieCard movie={elem} />
           </div>
@@ -86,13 +86,14 @@ const PopularMovies = () => {
       )}
 
       {/* End message */}
-      {!hasMore && popularMovies.length > 0 && (
+      {!hasMore && upcomingMovies.length > 0 && (
         <div className="w-full text-center py-12">
-          <p className="text-gray-400 text-xl">🎉 All {popularMovies.length} movies loaded!</p>
+          <p className="text-gray-400 text-xl">🎉 All {upcomingMovies.length} movies loaded!</p>
         </div>
       )}
     </div>
   );
 };
 
-export default PopularMovies;
+
+export default Upcoming

@@ -12,6 +12,14 @@ import SearchBar from "../partials/SearchBar";
 import SearchMovies from "../components/SearchMovies";
 import SearchedMovieDetails from "../components/SearchedMovieDetails";
 import ShowMovieDetails from "../components/ShowMovieDetails";
+import NowPlaying from "../RouteComponents/NowPlaying";
+import Upcoming from "../RouteComponents/Upcoming";
+import TopRated from "../RouteComponents/TopRated";
+import TvAiringToday from "../RouteComponents/TvAiringToday";
+import TvPopular from "../RouteComponents/TvPopular";
+import OnTv from "../RouteComponents/OnTv";
+import TvTopRated from "../RouteComponents/TvTopRated";
+import People from "../RouteComponents/People";
 
 const NavRoutes = () => {
   return (
@@ -29,9 +37,27 @@ const NavRoutes = () => {
         }
       />
 
+        {/* MOVIES */}
       <Route path="/movies/popular" element={<PopularMovies />} />
+      <Route path="/movies/now-playing" element={<NowPlaying />} />
+      <Route path="/movies/upcoming" element={<Upcoming />} />
+      <Route path="/movies/top-rated" element={<TopRated />} />
+      
+      {/* TV SHOWS */}
+      <Route path="/tv-shows/airing-today" element={<TvAiringToday />} />
+      <Route path="/tv-shows/popular" element={<TvPopular/>} />
+      <Route path="/tv-shows/on-tv" element={<OnTv/>} />
+      <Route path="/tv-shows/top-rated" element={<TvTopRated/>} />
+
+
+      <Route path="/people/popular" element={<People/>} />
+      
+      {/* OTHERS */}
       <Route path="/search/movieDetails" element={<SearchedMovieDetails />} />
       <Route path="/movie-detail" element={<ShowMovieDetails />} />
+      
+      {/* 404 */}
+      <Route path="*" element={<div className="p-20 text-white">404 - Page Not Found</div>} />
     </Routes>
   );
 };
