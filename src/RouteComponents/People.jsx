@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import axios from "../utils/axios";
-import MovieCard from "../partials/MovieCard";
+import PeopleCard from "../partials/PeopleCard";
 
 const People = () => {
-   const [tvTopRated, setTvTopRated] = useState([]);
+  const [peoplePopular, setPeoplePopular] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
 
-  const getTvTopRated = async () => {
+  const getPeoplePopular = async () => {
     if (loading || !hasMore) return;
     
     try {
@@ -17,20 +17,19 @@ const People = () => {
       const endpoint = `/person/popular?page=${currentPage}`;
       const { data } = await axios.get(endpoint);
       
-      // DUPLICATE CHECK + FILTER
-      const newMovies = data.results.filter(
-        newMovie => !tvTopRated.some(existing => existing.id === newMovie.id)
+      const newPeople = data.results.filter(
+        newPerson => !peoplePopular.some(existing => existing.id === newPerson.id)
       );
       
-      setTvTopRated(prev => [...prev, ...newMovies]);
+      setPeoplePopular(prev => [...prev, ...newPeople]);
       
       // End check
-      if (newMovies.length === 0 || currentPage >= 1000) {
+      if (newPeople.length === 0 || currentPage >= 1000) {
         setHasMore(false);
-        console.log(" No more movies!");
+        console.log("No more people!");
       }
       
-      console.log(` Page ${currentPage}: ${newMovies.length} new movies (total: ${tvTopRated.length + newMovies.length})`);
+      console.log(`People Page ${currentPage}: ${newPeople.length} new (total: ${peoplePopular.length + newPeople.length})`);
     } catch (error) {
       console.log(" Error:", error);
     } finally {
@@ -39,7 +38,7 @@ const People = () => {
   };
 
   // Intersection Observer
-  const lastMovieRef = useCallback(node => {
+  const lastPersonRef = useCallback(node => {
     if (observer.current) observer.current.disconnect();
     
     observer.current = new IntersectionObserver(entries => {
@@ -50,27 +49,26 @@ const People = () => {
     
     if (node) observer.current.observe(node);
   }, [hasMore, loading]);
-  
+
   useEffect(() => {
     if (currentPage === 1) {
-      setTvTopRated([]); // Reset on first page
+      setPeoplePopular([]); // Reset
     }
-    getTvTopRated();
+    getPeoplePopular();
   }, [currentPage]);
 
   return (
     <div className="w-full h-full flex flex-col px-32.5 py-10 gap-6 bg-zinc-800">
       <h1 className="text-3xl text-white font-semibold">
-        Tv Top-Rated  ({tvTopRated.length} loaded)
+        Popular People ({peoplePopular.length} loaded)
       </h1>
       
       <div className="movies flex flex-wrap gap-10 items-start justify-start">
-        {tvTopRated.map((elem, index) => (
+        {peoplePopular.map((person, index) => (
           <div 
-            key={`${elem.id}-${index}`} //COMPOSITE KEY - DUPLICATE ERROR GONE!
-            ref={index === tvTopRated.length - 1 && hasMore ? lastMovieRef : null}
+            ref={index === peoplePopular.length - 1 && hasMore ? lastPersonRef : null}
           >
-            <MovieCard movie={elem} />
+            <PeopleCard person={person} />
           </div>
         ))}
       </div>
@@ -86,13 +84,13 @@ const People = () => {
       )}
 
       {/* End message */}
-      {!hasMore && tvTopRated.length > 0 && (
+      {!hasMore && peoplePopular.length > 0 && (
         <div className="w-full text-center py-12">
-          <p className="text-gray-400 text-xl">🎉 All {tvTopRated.length} movies loaded!</p>
+          <p className="text-gray-400 text-xl">🎉 All {peoplePopular.length} people loaded!</p>
         </div>
       )}
     </div>
   );
 };
 
-export default People
+export default People;

@@ -1,8 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState, useContext } from 'react'
 import axios from '../utils/axios'
 import MovieCard from '../partials/MovieCard';
+import { MovieContext } from '../context/Context';
 
 const NowPlaying = () => {
+  const {handleCardButton} = useContext(MovieContext)
 
   const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -71,7 +73,7 @@ const NowPlaying = () => {
             key={`${elem.id}-${index}`} // COMPOSITE KEY - DUPLICATE ERROR GONE!
             ref={index === nowPlayingMovies.length - 1 && hasMore ? lastMovieRef : null}
           >
-            <MovieCard movie={elem} />
+            <MovieCard movie={elem} handleCardButton={handleCardButton} />
           </div>
         ))}
       </div>

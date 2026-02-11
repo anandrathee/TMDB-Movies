@@ -1,8 +1,11 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback, useContext } from "react";
 import axios from "../utils/axios";
 import MovieCard from "../partials/MovieCard";
+import { MovieContext } from "../context/Context";
 
 const OnTv = () => {
+    const {handleCardButton} = useContext(MovieContext)
+  
    const [onTv, setOnTv] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -70,7 +73,7 @@ const OnTv = () => {
             key={`${elem.id}-${index}`} //COMPOSITE KEY - DUPLICATE ERROR GONE!
             ref={index === onTv.length - 1 && hasMore ? lastMovieRef : null}
           >
-            <MovieCard movie={elem} />
+            <MovieCard movie={elem} handleCardButton={handleCardButton} />
           </div>
         ))}
       </div>
